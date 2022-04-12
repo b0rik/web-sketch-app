@@ -52,6 +52,8 @@ function clearChildren() {
 function clear() {
     clearChildren();
     init();
+
+    if(mode === 'grayscale') blackBlocks();
 }
 
 //paint hovered block
@@ -71,6 +73,7 @@ function paint(e) {
     }
 }
 
+//remove active class from all buttons
 function clearActive() {
     let buttons = document.querySelectorAll('.panel button');
     buttons.forEach(button => {
@@ -80,36 +83,41 @@ function clearActive() {
 
 //set mode to black color
 function setBlack() {
+    mode = 'black';
+
     clearActive();
     blackButton.classList.add('btn-active');
 
     clear();
-    mode = 'black';
 }
 
 //set mode to rainbow color
 function setRainbow() {
+    mode = 'rainbow';
+    
     clearActive();
     rainbowButton.classList.add('btn-active');
 
     clear();
-    mode = 'rainbow';
 }
 
-//set mode to grayscale paint
-function setGrayscale() {
-    clearActive();
-    grayscaleButton.classList.add('btn-active');
-
-    clear();
-
+function blackBlocks() {
     let blocks = document.querySelectorAll('.canvas div');
     blocks.forEach(block => {
         block.style.backgroundColor = 'black';
         block.style.opacity = '0';
     });
+}
 
+//set mode to grayscale paint
+function setGrayscale() {
     mode = 'grayscale';
+    
+    clearActive();
+    grayscaleButton.classList.add('btn-active');
+
+    clear();
+    blackBlocks()
 }
 
 //resize the canvas
